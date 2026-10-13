@@ -83,7 +83,12 @@
     var left = startingAt - serverNow();
     if (left <= 0) { window.location.href = 'play.php'; return; }
     cd.classList.add('on');
-    $('cdnum').textContent = Math.ceil(left / 1000);
+    var n = String(Math.ceil(left / 1000)), el = $('cdnum');
+    if (el.textContent !== n) {
+      /* each new second lands with a pop and one ring going out */
+      el.textContent = n;
+      el.classList.remove('tick-in'); void el.offsetWidth; el.classList.add('tick-in');
+    }
   }
   setInterval(function () { if (startingAt !== null) paintCountdown(); }, 100);
 

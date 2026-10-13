@@ -32,6 +32,13 @@ include __DIR__ . '/../partials/head.php';
       </div>
     </div>
 
+    <div class="tiles">
+      <div class="tile"><span class="k">Registered</span><b class="v" id="stReg">—</b></div>
+      <div class="tile"><span class="k">Online now</span><b class="v" id="stOn">—</b></div>
+      <div class="tile"><span class="k">Submitted</span><b class="v" id="stSub">—</b></div>
+      <div class="tile live-t"><span class="k">Round</span><b class="v" id="stRound">—</b><span class="s" id="stRoundS">idle</span></div>
+    </div>
+
     <div class="agrid">
       <div>
         <div class="sect">Rounds</div>

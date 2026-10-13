@@ -26,6 +26,13 @@
     var t = $('timer');
     t.classList.toggle('warn', left <= 120 && left > 30);
     t.classList.toggle('bad',  left <= 30);
+    /* the hairline under the top bar drains with the clock */
+    var bar = $('tprog');
+    if (bar && typeof TOTAL_MS === 'number' && TOTAL_MS > 0) {
+      var f = Math.max(0, Math.min(1, (endMs - serverNow()) / TOTAL_MS));
+      bar.style.transform = 'scaleX(' + f.toFixed(4) + ')';
+      bar.className = left <= 30 ? 'bad' : left <= 120 ? 'warn' : '';
+    }
     if (left <= 0 && !finished) submit(true);
   }
   setInterval(tick, 250);
@@ -124,6 +131,27 @@
     runCheck();
   });
 
+  /* The number rolls from where it was to where it is, so a change reads as a
+     change. 650ms, eased out; skipped entirely for reduced motion. */
+  var REDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function countTo(el, to, fmt) {
+    var from = parseFloat((el.textContent || '').replace(/[^0-9.\-]/g, ''));
+    if (isNaN(from)) from = 0;
+    if (REDUCED) { el.textContent = fmt(to); return; }
+    var t0 = performance.now(), D = 650;
+    (function step(now) {
+      var k = Math.min(1, (now - t0) / D), e = 1 - Math.pow(1 - k, 3);
+      el.textContent = fmt(from + (to - from) * e);
+      if (k < 1) requestAnimationFrame(step);
+    })(t0);
+  }
+  /* a thin line drains under the button for the 15s cooldown */
+  function coolDown(btn) {
+    btn.classList.remove('cool'); void btn.offsetWidth;
+    btn.style.setProperty('--cd', COOLDOWN_MS + 'ms');
+    btn.classList.add('cool');
+  }
+
   function runCheck() {
     checking = true;
     lastCheck = Date.now();
@@ -137,9 +165,16 @@
         .then(function (d) {
           checking = false; btn.disabled = false;
           if (!d.ok) { $('accMsg').textContent = d.error || 'Could not render that.'; return; }
-          $('accVal').textContent   = d.accuracy.toFixed(2) + '%';
-          $('accExact').textContent = d.exact.toFixed(1) + '%';
-          $('accOff').textContent   = d.off.toLocaleString();
+          countTo($('accVal'),   d.accuracy, function (v) { return v.toFixed(2) + '%'; });
+          countTo($('accExact'), d.exact,    function (v) { return v.toFixed(1) + '%'; });
+          countTo($('accOff'),   d.off,      function (v) { return Math.round(v).toLocaleString(); });
+          coolDown(btn);
+          var v = $('accVal');
+          v.classList.remove('ok', 'mid', 'low');
+          v.classList.add(d.accuracy >= 95 ? 'ok' : d.accuracy >= 80 ? 'mid' : 'low');
+          var fill = $('accFill');
+          if (fill) { fill.style.width = Math.max(0, Math.min(100, d.accuracy)) + '%';
+                      fill.className = v.className.replace('val', '').trim(); }
           $('accMsg').textContent   = d.accuracy >= 99.9
             ? 'Pixel perfect. Nothing left to fix.'
             : 'Slide "overlay target" above your output to see what is off.';

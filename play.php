@@ -83,6 +83,7 @@ include __DIR__ . '/partials/head.php';
       <div class="stat"><div class="v" id="chars">0</div><div class="k">CHARACTERS</div></div>
       <button class="btn" id="submitBtn">Submit</button>
     </div>
+    <div class="tprog"><i id="tprog"></i></div>
   </div>
 
   <div class="panes">
@@ -142,6 +143,7 @@ include __DIR__ . '/partials/head.php';
               <div><b id="accOff">—</b><span>PIXELS OFF</span></div>
             </div>
           </div>
+          <div class="accmeter"><i id="accFill"></i></div>
           <div class="msg" id="accMsg">Press <b style="color:var(--mut)">Check accuracy</b> to compare your render with the target.</div>
         </div>
       </div>
@@ -179,6 +181,7 @@ include __DIR__ . '/partials/head.php';
 var ROUND    = <?= (int) $r['round_no'] ?>;
 var END_MS   = <?= (int) $endMs ?>;
 var SERVER0  = <?= now_ms() ?>;
+var TOTAL_MS = <?= (int) $r['time_limit_s'] * 1000 ?>;
 var PALETTE  = <?= json_encode($palette) ?>;
 var START    = <?= json_encode($start) ?>;
 var HAS_DESIGN = <?= $design ? 'true' : 'false' ?>;

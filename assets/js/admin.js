@@ -148,6 +148,22 @@
     $('svReg').textContent = c.registered;
     $('svOn').textContent  = c.online;
     $('hdCount').textContent = c.online + ' of ' + c.registered;
+    if ($('stReg')) {
+      $('stReg').textContent = c.registered;
+      $('stOn').textContent  = c.online;
+      $('stSub').textContent = c.submitted == null ? '—' : c.submitted;
+      var run = null, fin = null;
+      d.rounds.forEach(function (x) { if (x.status === 'running') run = x; if (x.status === 'ended') fin = x; });
+      var tl = $('stRound').parentNode;
+      if (run) {
+        $('stRound').textContent = run.no;
+        $('stRoundS').textContent = mmss(Math.max(0, Math.round((run.ends_ms - serverNow()) / 1000))) + ' left';
+      } else {
+        $('stRound').textContent = fin ? fin.no : '—';
+        $('stRoundS').textContent = fin ? 'finished' : 'idle';
+      }
+      tl.classList.toggle('running', !!run);
+    }
     $('qErr').textContent = c.errors ? c.errors + ' errors' : '';
 
     if (scoring) return;              // the scorer owns this box while it runs

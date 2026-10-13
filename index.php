@@ -52,40 +52,67 @@ include __DIR__ . '/partials/head.php';
 
 <!-- ══════════════ registration ══════════════ -->
 <section class="screen<?= $p ? '' : ' on' ?>" id="s-register">
-  <div class="reg">
-    <div class="logo" data-logo="112">CB</div>
-    <div class="wordmark">
-      <span class="wm-css">CSS</span>
-      <span class="wm-arena">ARENA</span>
-      <span class="wm-tag">CODE · STYLE · BATTLE</span>
-      <div class="wm-rule"></div>
-    </div>
-    <p class="sub" style="margin-top:20px">VivaCity 2K26 · Tech Fest<br>Recreate the design. Pixel for pixel.</p>
+  <div class="hero">
+    <div class="hero-l">
+      <div class="lockup">
+        <div class="logo" data-logo="112">CB</div>
+        <div class="lockup-t">
+          <span class="lk-name">CSS Arena</span>
+          <span class="lk-sub">VivaCity 2K26 · Tech Fest</span>
+        </div>
+      </div>
 
-    <!-- novalidate: we show our own messages in one place rather than
-     letting the browser pop its own tooltip for the email field -->
-    <form id="regForm" autocomplete="off" novalidate>
-      <div class="field">
-        <label for="rn">Your name</label>
-        <input id="rn" name="name" placeholder="e.g. Aarav Mehta" autocomplete="off" maxlength="40">
+      <h1 class="hero-h">Recreate the design.<br><span>Pixel for pixel.</span></h1>
+      <p class="hero-p">Write HTML and CSS until your render matches the target.
+         Every entry is drawn by the same browser and compared pixel by pixel.</p>
+
+      <?php /* A tiny worked example: the code on the left becomes the shape on
+               the right. It types itself once on load, then stands still. */ ?>
+      <div class="demo" aria-hidden="true">
+        <div class="demo-code"><span class="demo-bar"><i></i><i></i><i></i></span><pre id="demoCode"></pre></div>
+        <div class="demo-out"><div class="demo-shape" id="demoShape"></div><span class="demo-acc" id="demoAcc">—</span></div>
       </div>
-      <div class="field">
-        <label for="re">Email</label>
-        <input id="re" name="email" type="email" placeholder="e.g. aarav@college.edu"
-               autocomplete="off" maxlength="120" inputmode="email">
-      </div>
-      <div class="field">
-        <label for="rp">Phone number</label>
-        <input id="rp" name="phone" type="tel" placeholder="e.g. 98765 43210"
-               autocomplete="off" maxlength="20" inputmode="tel">
-      </div>
-      <div class="field">
-        <label for="rs">PC / seat number <span class="dim" style="font-weight:400">(required)</span></label>
-        <input id="rs" name="seat" placeholder="e.g. LAB2-14" autocomplete="off" maxlength="20">
-      </div>
-      <div class="reghint" id="regHint"></div>
-      <button class="btn" type="submit" id="regGo">Enter the arena</button>
-    </form>
+
+      <ol class="rounds">
+        <li><b>01</b><span>Easy</span><em>Accuracy</em></li>
+        <li><b>02</b><span>Intermediate</span><em>Accuracy</em></li>
+        <li><b>03</b><span>Final</span><em>Accuracy · characters</em></li>
+      </ol>
+    </div>
+
+    <div class="hero-r">
+      <!-- novalidate: we show our own messages in one place rather than
+       letting the browser pop its own tooltip for the email field -->
+      <form id="regForm" class="regcard" autocomplete="off" novalidate>
+        <div class="rc-head">
+          <b>Register</b>
+          <span><i class="livedot"></i>Local server · online</span>
+        </div>
+        <div class="field">
+          <label for="rn">Your name</label>
+          <input id="rn" name="name" placeholder="e.g. Aarav Mehta" autocomplete="off" maxlength="40">
+        </div>
+        <div class="field">
+          <label for="re">Email</label>
+          <input id="re" name="email" type="email" placeholder="e.g. aarav@college.edu"
+                 autocomplete="off" maxlength="120" inputmode="email">
+        </div>
+        <div class="field two">
+          <div>
+            <label for="rp">Phone number</label>
+            <input id="rp" name="phone" type="tel" placeholder="98765 43210"
+                   autocomplete="off" maxlength="20" inputmode="tel">
+          </div>
+          <div>
+            <label for="rs">PC / seat no.</label>
+            <input id="rs" name="seat" placeholder="LAB2-14" autocomplete="off" maxlength="20">
+          </div>
+        </div>
+        <div class="reghint" id="regHint"></div>
+        <button class="btn" type="submit" id="regGo">Enter the arena <span class="arr">→</span></button>
+        <p class="rc-foot">One entry per person. Your seat number must match the label on this PC.</p>
+      </form>
+    </div>
   </div>
 </section>
 
@@ -114,5 +141,6 @@ include __DIR__ . '/partials/head.php';
 
 <script src="<?= asset('assets/js/brand.js') ?>"></script>
 <script src="<?= asset('assets/js/lobby.js') ?>"></script>
+<script src="<?= asset('assets/js/demo.js') ?>"></script>
 </body>
 </html>

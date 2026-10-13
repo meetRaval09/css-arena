@@ -12,7 +12,7 @@
 (function (w) {
   'use strict';
 
-  var COLORS = ['#7c5cff', '#22e3d6', '#c9f24a', '#ffb62e', '#ff4fa3', '#f4f1ff'];
+  var COLORS = ['#7C66FF', '#B3A6FF', '#ECEDF2', '#F5B544', '#3DD68C', '#5B8CFF'];
 
   function confetti(opts) {
     opts = opts || {};

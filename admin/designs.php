@@ -172,21 +172,20 @@ include __DIR__ . '/../partials/head.php';
     </div>
 
     <?php if ($err): ?>
-      <div class="card" style="padding:14px 18px;border-color:#5c2247;color:#ff9dc4;margin-bottom:8px">
+      <div class="card" style="padding:14px 18px;border-color:#4A2224;color:#E8878A;margin-bottom:8px">
         <?= htmlspecialchars($err) ?>
       </div>
     <?php endif; ?>
 
     <?php if ($note): ?>
-      <div class="card" style="padding:14px 18px;border-left:3px solid var(--lime);margin-bottom:8px">
+      <div class="card" style="padding:14px 18px;border-left:2px solid var(--ok);margin-bottom:8px">
         <?= $note ?>
       </div>
     <?php endif; ?>
 
     <?php if ($done): ?>
       <!-- ═══ NEW: the result card now ends in a confirm step ═══ -->
-      <div class="card" id="approve" style="padding:18px;border-color:var(--lime);
-           box-shadow:0 0 0 3px rgba(201,242,74,.16);margin-bottom:8px">
+      <div class="card" id="approve" style="padding:18px;margin-bottom:8px">
 
         <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
           <span class="pill q">attached</span>
@@ -198,8 +197,7 @@ include __DIR__ . '/../partials/head.php';
         <div style="display:flex;gap:22px;margin-top:16px;align-items:flex-start;flex-wrap:wrap">
           <img src="../<?= htmlspecialchars($done['png']) ?>?<?= time() ?>" width="400" height="300"
                alt="the rendered target for round <?= (int) $done['round'] ?>"
-               style="border:3px solid var(--acc2);border-radius:8px;
-                      box-shadow:6px 6px 0 rgba(124,92,255,.42);display:block">
+               style="border:1px solid var(--line);border-radius:6px;display:block">
           <div style="font:12px/1.9 var(--mono);color:var(--mut);min-width:260px">
             <div>palette &nbsp;<?= htmlspecialchars(implode('  ', $done['palette'])) ?></div>
             <div>par &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?= (int) $done['par'] ?> characters</div>
@@ -218,9 +216,9 @@ include __DIR__ . '/../partials/head.php';
         </p>
 
         <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;
-                    margin-top:18px;padding-top:16px;border-top:2px solid var(--line)">
+                    margin-top:18px;padding-top:16px;border-top:1px solid var(--line)">
           <a class="btn" href="index.php" style="text-decoration:none;display:inline-block">
-            APPROVE · BACK TO CONSOLE
+            Approve · back to console
           </a>
           <a class="btn ghost sm" href="#newdesign" style="text-decoration:none;display:inline-block">
             Render another
@@ -246,7 +244,7 @@ include __DIR__ . '/../partials/head.php';
           <div class="card" style="padding:12px;width:236px">
             <img src="../<?= htmlspecialchars($d['png_path']) ?>" width="212" height="159"
                  alt="<?= htmlspecialchars($d['name']) ?>" loading="lazy"
-                 style="display:block;border-radius:6px;border:2px solid var(--line);background:#fff">
+                 style="display:block;border-radius:6px;border:1px solid var(--line);background:#fff">
 
             <div style="margin-top:10px;font-size:13px;font-weight:600;line-height:1.3">
               <?= htmlspecialchars($d['name']) ?>
@@ -305,7 +303,7 @@ include __DIR__ . '/../partials/head.php';
       <textarea name="code" spellcheck="false" wrap="off"
         style="width:100%;height:260px;background:var(--ed-bg);color:var(--tx);border:2px solid var(--ed-edge);
                border-radius:14px;padding:14px;font:13px/1.6 var(--mono);resize:vertical;
-               caret-color:var(--lime);outline:none"
+               caret-color:var(--acc);outline:none"
         placeholder="&lt;style&gt;&#10;  body { margin:0; height:300px; background:#0F5257 }&#10;&lt;/style&gt;"><?= htmlspecialchars($code) ?></textarea>
       <div style="display:flex;gap:14px;align-items:center;margin-top:14px;flex-wrap:wrap">
         <label class="st-f">Name <input type="text" name="name" value="<?= htmlspecialchars($name) ?>" placeholder="Pinwheel"></label>
@@ -317,7 +315,7 @@ include __DIR__ . '/../partials/head.php';
           </select>
         </label>
         <span style="flex:1"></span>
-        <button class="btn" type="submit" id="renderGo">RENDER AND ATTACH</button>
+        <button class="btn" type="submit" id="renderGo">Render and attach</button>
       </div>
       <p class="dim" style="font-size:11.5px;margin:14px 0 0;line-height:1.7">
         Rendered at <?= CANVAS_W ?> × <?= CANVAS_H ?> through the exact shell used for scoring.

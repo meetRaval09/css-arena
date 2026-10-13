@@ -112,13 +112,14 @@ if ($waiting): ?>
           </td></tr>
         <?php endif; ?>
         <?php foreach ($ranked as $x): ?>
-          <tr<?= $x['qualified'] ? ' style="background:#101a14"' : '' ?>>
-            <td style="font-family:var(--mono);<?= $x['place'] <= 3 ? 'color:var(--gold);font-weight:700' : '' ?>">
-              <?= (int) $x['place'] ?></td>
-            <td><?= htmlspecialchars($x['name']) ?></td>
+          <tr<?= $x['qualified'] ? ' class="through"' : '' ?>>
+            <td class="rk<?= $x['place'] <= 3 ? ' rk' . (int) $x['place'] : '' ?>">
+              <?= $x['place'] <= 3 ? '<span class="medal">' . (int) $x['place'] . '</span>' : (int) $x['place'] ?></td>
+            <td class="nm"><?= htmlspecialchars($x['name']) ?></td>
             <td class="dim" style="font-family:var(--mono);font-size:11.5px"><?= htmlspecialchars($x['email']) ?></td>
             <td class="dim"><?= htmlspecialchars($x['seat_no'] ?: '—') ?></td>
-            <td style="font-family:var(--mono)"><?= number_format($x['accuracy'], 2) ?>%</td>
+            <td><span class="num"><?= number_format($x['accuracy'], 2) ?>%</span>
+                <div class="bar"><i style="width:<?= max(0, min(100, (float) $x['accuracy'])) ?>%"></i></div></td>
             <?php if ((int) $r['chars_first'] === 1): ?>
               <td style="font-family:var(--mono)"><?= (int) $x['char_count'] ?></td>
               <td class="dim" style="font-family:var(--mono)"><?= mmss_ms((int) $x['elapsed_ms']) ?></td>
@@ -126,10 +127,10 @@ if ($waiting): ?>
             <td>
               <?php if ((int) $r['qualify_count']): ?>
                 <?= $x['qualified']
-                      ? '<span style="color:var(--ok)">through</span>'
-                      : '<span class="dim">out</span>' ?>
+                      ? '<span class="pill q">through</span>'
+                      : '<span class="pill o">out</span>' ?>
               <?php else: ?>
-                <?= $x['place'] === 1 ? '<span style="color:var(--gold)">winner</span>' : '<span class="dim">—</span>' ?>
+                <?= $x['place'] === 1 ? '<span class="pill w">winner</span>' : '<span class="dim">—</span>' ?>
               <?php endif; ?>
             </td>
           </tr>

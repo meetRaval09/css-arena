@@ -207,7 +207,7 @@ if (!$ok) {
     echo '<body style="font:15px system-ui;background:#140f22;color:#f4f1ff;padding:40px">'
        . '<h2>The Excel export could not be written.</h2><p>' . htmlspecialchars($msg) . '</p>'
        . '<p>The per-round CSV links on the standings page still work — use those.</p>'
-       . '<p><a style="color:#c9f24a" href="index.php">back to the console</a></p>';
+       . '<p><a style="color:#4D7CFE" href="index.php">back to the console</a></p>';
     exit;
 }
 
